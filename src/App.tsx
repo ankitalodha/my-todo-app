@@ -18,27 +18,31 @@ const handleChange = (event: ChangeEvent<HTMLInputElement>) : void => {
 
 const completeTask = (taskNameToDelete: string) : void => {
   setTodoList(todoList.filter((task) => {
-      return task.taskName != taskNameToDelete
+      return task.taskName !== taskNameToDelete;
   }))
 
 };
 
 const addTask = () : void => {
   const newTask = {taskName: task, deadline: deadline};
-  setTodoList([...todoList, newTask])
+  setTodoList([...todoList, newTask]);
+  setTask("");
+  setDeadline(0);
 };
 
   return (
     <div className="App">
      <div className="header">
-       <div className="inputHeader">
-          <input type="text" placeholder="Task.." name="task" onChange={handleChange}/>
-          <input type="number" placeholder="Deadline (in days).." name="deadline" onChange={handleChange}/>
+       <div className="inputContainer">
+          <input type="text" placeholder="Task.." name="task" onChange={handleChange} value={task}/> 
+          <br/>
+          <input type="number" placeholder="Deadline (in days).." name="deadline" onChange={handleChange} value={deadline}/>
+          <br/>
+          <button onClick={addTask}>Add Task</button>
        </div>
-       <button onClick={addTask}>Add Task</button>
      </div>
      <div className="todoList">
-       {todoList.map((task: ITask, key: number) => {
+       {todoList.map((task: ITask, key:number) => {
          return <ToDoTask key={key} task={task} completeTask={completeTask}/>
        })}
      </div>
@@ -47,7 +51,4 @@ const addTask = () : void => {
 }
 
 export default App;
-function taskNameToDelete(taskNameToDelete: any, string: any): React.SetStateAction<ITask[]> {
-  throw new Error('Function not implemented.');
-}
 
